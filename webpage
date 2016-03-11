@@ -1,0 +1,181 @@
+Kentico 8 Documentation  Kentico 8 Documentation Home  Developing websites
+Defining website data structure
+Skip to end of metadata
+Created by Ondřej Funda, last modified by Jakub Cech on Mar 27, 2014 Go to start of metadata
+On this page, you can learn how Kentico stores and organizes data:
+How data is organized
+How to store data effectively
+Document types
+Custom tables
+Organizing pages, documents and files
+All content in Kentico is stored in a tree hierarchy. You can see it in the content tree on the left side the Pages application.
+The content tree in the Pages application
+ 
+On this page
+Organizing pages, documents and files
+Document types
+Pages and documents
+Pages versus Forms
+Organizing media files
+Storing data effectively
+In this section
+Document types
+Custom tables
+ The tree hierarchy provides certain advantages:
+It organizes the page in a logical structure that represents the (dynamic) site map.
+It ensures easy-to-navigate information architecture.
+It provides a logical categorization of pages and documents.
+The content of sub-pages can be nested inside the parent pages.
+The position of the document is reflected in its URL, which consists of the document path in the tree hierarchy, 
+such as /products/lcd-displays/nec-52vm.aspx.
+The structure allows you to define permissions (and other types of settings) for a particular site section and have underlying items inherit them.
+The following figure shows how the content tree defines the navigation and site map of the website:
+Navigation and site map defined by the content tree
+Document types
+Each document is of some type - it can be a page, a news item, an article, a product specification, etc. Each document type has its own:
+fields (data structure)
+editing form layout
+transformations (appearance and design)
+queries
+and other settings.
+Document types are fully customizable. You can add, modify and delete custom fields. The advantage of using custom document types is that you can define custom structure of documents and store content (data) separate from design.
+See how you can use the Document types application.
+Pages and documents
+All items in the content tree are in fact documents. However, there is a special type of documents called pages. The pages (such as /Home, /Products, /Services on the sample Corporate site) display content and they are displayed as menu items by default (this can be also customized).
+Unlike pages, structured documents (such as the news items under the /News section of the sample Corporate Site) contain structured data that is then displayed by pages.
+While pages usually contain unstructured content in the form of editable regions that can be edited on the Page tab, structured documents contain structured and typed data stored in document type-specific database tables and edited on the Form tab.
+You will typically use structured documents when you need to display a list of items, such as list of news, list of products, etc.
+Pages versus Forms
+There are two types of content: content stored in editable regions on the page and content stored in forms. The following table compares both approaches:
+ 
+Editable regions on the page
+Form
+Content structure
+Simple content structure, only text-based content.
+Complex content structures, typed data, such as text, date-time, numbers, etc.
+Validation
+Only basic validation rules for minimum and maximum length.
+Complex validation rules, including regular expressions and custom form controls with custom validation code.
+Display
+The content is displayed in the context of the page providing truly WYSIWYG editing.
+The content is displayed using XSLT or ASCX transformations using special controls or web parts.
+Storage
+The content is stored in a single XML document in the document properties.
+The content is stored in a separate database table. Each field has its own column. The data can be easily modified using SQL queries or API.
+Examples of use
+Home page, contact page.
+ 
+Generally: pages with simply structured or unstructured, text-only content.
+ 
+The editable regions are usually used only in connection with documents of type Page (menu item).
+News, product specification, event details, job opening, etc.
+ 
+Generally: pages with structured content where you need to separate content from design and keep the content in its original data type.
+ 
+The form-based content is usually used in connection with documents of type News, Product, Article, etc.
+Organizing media files
+There are two types of files you need to manage on the website:
+Website design files - images and flash files that are a part of the website's design, such as logo, background or menu images. These should be stored in the file system as a part of the application theme.
+Media files and document files - images, flash movies, word documents, PDFs, etc. that are published on the website and are part of the content editable by editors. These should be uploaded to the content tree as documents so that they can be managed by the content editors and so that you can apply all content-related features (permissions, workflow, versioning, multilingual support) to files as well.
+You can find more details on files in the Managing files chapter.
+Storing data effectively
+The tree hierarchy, in which Kentico stores all the content, provides many advantages:
+It organizes the page in a logical structure that represents the (dynamic) site map.
+It ensures easy-to-navigate information architecture.
+It provides a logical categorization of pages and documents.
+The content of sub-pages can be nested inside the parent pages.
+The position of the document is reflected in its URL, which consists of the document path in the tree hierarchy,
+such as /products/lcd-displays/nec-52vm.aspx.
+The structure allows you to define permissions (and other types of settings) for a particular site section and have underlying items inherit them.
+The following figure shows how the content tree defines the navigation and site map of the website:
+When storing data in Kentico, you should consider whether you want to store it in Documents, Custom tables or Media libraries. Each of the options was created with different use in mind and thus provides various advantages over the others. Refer to the following text to see a comparison of the approaches:
+Documents
+Documents offer a hierarchical tree data structure for storing data. You can use them in a workflow or to hold multilingual content without having to use localization macros. 
+Custom tables
+Custom tables provide you with better performance than Documents when storing data in a flat structure. Consider using custom tables when you need to store a large amount of structured items. To localize custom table data, you need to use localization macros.
+Learn more about Custom tables.
+Media libraries
+Media libraries are designed to store large files — not exclusively of media character — such as videos, high-res images or packaged files. You can access media library files without overhead as there is no need to query a database in order to access them.
+Learn more about Media libraries.
+Documents vs. custom tables
+ 
+Documents
+Custom tables
+Can hold traditional data types (int, float, ...)
+(tick)
+(tick)
+Can hold binary stream data (files)
+(tick)
+(error)
+Can hold one-to-many data (radio buttons, drop-down lists)
+(tick)
+(tick)
+Data can be formatted using transformations
+(tick)
+(tick)
+Can be used as an E-commerce product
+(tick)
+(error)
+Can be displayed by 'Listings' web parts
+(tick)
+(tick)
+Can be displayed by 'Navigation' web parts
+(tick)
+(error)
+Workflow
+(tick)
+(error)
+Versioning
+(tick)
+(error)
+Multilingual content
+(tick)
+(tick)*
+Hierarchical data structure
+(tick)
+(error)
+Each record has its own URL
+(tick)
+(error)*
+Data can be accessed using API
+(tick)
+(tick)
+Importable / Exportable
+(tick)
+(tick)
+Performance
+Recommended for large data sets when using flat data structure
+(error)
+(tick)
+Number of database tables that store the data
+3+
+1
+Recommended for large binary data
+(error)
+ (error)
+Binary data can be stored in file system
+(tick)
+(error)
+*You can translate custom table data using localization macros only.
+**You can access custom table records via listing web parts and query string URL parameters.   
+Documents vs. media libraries
+ 
+Documents
+Media libraries
+Recommended for large binary data
+(error)
+(tick)
+Direct access to the data without querying database
+(error)
+(tick)
+Number of database tables that store the data
+3+
+2
+Binary data can be stored in file system
+(tick)
+(tick)
+ 
+performance
+2 Child Pages
+Page: Document types
+Page: Custom tables
